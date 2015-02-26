@@ -1,0 +1,23 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+    int a, b, ok=0, *d;
+    ifstream f("cmmdc.in");
+    ofstream g("cmmdc.out");
+    f>>a>>b;
+    while(a!=b)
+    {
+        if(a>b)a=a-b;
+        else b=b-a;
+    }
+    if(a==1)g<<"0";
+    else g<<a;
+    f.close();
+    g.close();
+    cout<<endl;
+    return 0;
+}
