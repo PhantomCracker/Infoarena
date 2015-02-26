@@ -1,0 +1,51 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+ 
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <cstring>
+using namespace std;
+ 
+ifstream f("cifra.in");
+ofstream g("cifra.out");
+ 
+int n, numar, vector[105];
+char sir[105];
+ 
+int putere(int numar)
+{
+    int solutie = 1;
+    for(int i=1; i<=numar; i++)
+    {
+        solutie = solutie*numar;
+        solutie = solutie%10;
+    }
+    return solutie;
+}
+ 
+void calculeaza()
+{
+    for(int i=1; i<=100; i++)
+    {
+        vector[i] = vector[i-1] + putere(i);
+        vector[i] = vector[i] % 10;
+    }
+}
+ 
+int main()
+{
+ 
+    calculeaza();
+    f>>n;
+    f.get();
+    for(int i=1; i<=n; i++)
+    {
+        f.getline(sir, 105);
+        if(strlen(sir) > 1) numar = (sir[strlen(sir)-2] - '0')*10 + sir[strlen(sir)-1] - '0';
+        else numar = sir[strlen(sir)-1] - '0';
+        g<<vector[numar]<<"\n";
+    }
+ 
+    cout<<endl;
+    return 0;
+}
