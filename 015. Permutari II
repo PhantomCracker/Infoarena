@@ -1,0 +1,57 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int n, p[1000000], i, j, ciclu[1000000], lungime, solutie;
+
+void calcul_ciclu(int x, int y)
+{
+	if(p[x] != y)
+	{
+		lungime++;
+		calcul_ciclu(p[x], y);
+	}
+	ciclu[x] = lungime;
+}
+
+int cel_mai_mare_divizor_comun(int x, int y)
+{
+	while(y)
+	{
+		int rest = x%y;
+		x = y;
+		y = rest;
+	}
+	return x;
+}
+
+int cel_mai_mic_multiplu_comun(int x, int y)
+{
+	return x*(y/cel_mai_mare_divizor_comun(x, y));
+}
+
+int main()
+{
+	ifstream f("perm2.in");
+	ofstream g("perm2.out");
+	f>>n;
+	for(i=1; i<=n; i++)
+		f>>p[i];
+	for(i=1; i<=n; i++)
+		if(!ciclu[i])
+		{
+			lungime = 1;
+			calcul_ciclu(i, i);
+		}
+		solutie = 1;
+		for(i=1; i<=n; i++)
+			solutie = cel_mai_mic_multiplu_comun(solutie, ciclu[i]);
+		g<<endl<<solutie;
+
+		cout<<endl;
+		f.close();
+		g.close();
+		return 0;
+}
