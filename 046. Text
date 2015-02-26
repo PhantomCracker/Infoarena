@@ -1,0 +1,48 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+  
+  
+#include <iostream>
+#include <cstring>
+#include <fstream>
+  
+using namespace std;
+  
+ifstream f("text.in");
+ofstream g("text.out");
+  
+char c;
+int numar_cuvinte, numar_caractere, cuvant, caracter;
+  
+int main()
+{
+    cuvant = 1;
+  
+// citire fisier
+    while(f.get(c))
+    {
+        if(c>='a' && c<='z' || c>='A' && c<='Z')
+        {
+            if(cuvant == 1)numar_cuvinte++;
+            cuvant = 0;
+            numar_caractere++;
+            caracter = 1;
+        }
+        else if(c!='-') cuvant = 1;
+        if(caracter == 0 && strchr(",-?!;':", c))
+        {
+            numar_cuvinte++;
+            caracter = 0;
+        }
+    }
+  
+    g<<numar_caractere/numar_cuvinte;
+  
+/*// afisare sir de caractere
+    for(i=0; i<strlen(text); i++)
+        cout<<text[i];*/
+  
+  
+  
+    cout<<endl;
+    return 0;
+}
