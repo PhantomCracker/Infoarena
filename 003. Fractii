@@ -1,0 +1,35 @@
+// Created by PhantomCracker. Copyright (c) PhantomCracker
+ 
+#include <iostream>
+#include <fstream>
+#include <cmath>
+using namespace std;
+ 
+long long int ciurul_eratostene(int n)
+{
+    long long int nr = 0;
+    int v[1000005];
+    for(int i=2; i<=n; i++)
+        v[i] = i-1;
+    for(int i=2; i<=n; i++)
+        for(int j=2*i; j<=n; j=j+i)
+            v[j] = v[j] - v[i];
+        for(int i=1; i<=n; i++)
+            nr = nr + v[i];
+        nr = nr*2;
+        nr++;
+        return nr;
+}
+ 
+int main()
+{
+    ifstream f("fractii.in");
+    ofstream g("fractii.out");
+ 
+    int n;
+ 
+    f>>n;
+    g<<ciurul_eratostene(n);
+    //cout<<endl;
+    return 0;
+}
