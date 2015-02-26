@@ -1,0 +1,43 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+ 
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <limits>
+using namespace std;
+ 
+int verificare(int nr)
+{
+    int count = 0;
+    int putere_cinci = 5;
+    while(nr/putere_cinci > 0)
+    {
+        count = count + nr/putere_cinci;
+        putere_cinci = putere_cinci * 5;
+    }
+    return count;
+}
+ 
+int main()
+{
+    ifstream f("fact.in");
+    ofstream g("fact.out");
+ 
+    int stanga, dreapta, mijloc;
+    int p;
+    f>>p;
+ 
+    stanga = 1;
+    dreapta = p*5;
+    while(stanga <= dreapta)
+    {
+        mijloc = (stanga + dreapta)/2;
+        if(verificare(mijloc) < p) stanga = mijloc + 1;
+        else dreapta = mijloc - 1;
+    }
+    if(verificare(stanga) == p) g<<stanga;
+    else g<<-1;
+ 
+    cout<<endl;
+    return 0;
+}
