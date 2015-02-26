@@ -1,0 +1,59 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+ 
+#include <iostream>
+#include <fstream>
+using namespace std;
+ 
+ifstream f("flip.in");
+ofstream g("flip.out");
+ 
+int n, m, sol;
+int tabla[26][26];
+int raspuns[26];
+ 
+void verificare()
+{
+    int suma = 0;
+    for(int i=1; i<=n; i++)
+    {
+        int s = 0;
+        for(int j=1; j<=m; j++)
+        {
+            if(raspuns[j]) s = s-tabla[i][j];
+            else s = s+tabla[i][j];
+        }
+        if(s < 0) suma = suma - s;
+        else suma = suma + s;
+    }
+    if(suma > sol) sol = suma;
+}
+ 
+void backtracking(int k)
+{
+    if(k == m) verificare();
+    else
+    {
+        for(int i=0; i<=1; i++)
+        {
+            raspuns[k] = i;
+            backtracking(k+1);
+        }
+    }
+}
+ 
+int main()
+{
+    f>>n>>m;
+    for(int i=1; i<=n; i++)
+        for(int j=1; j<=m; j++)
+            f>>tabla[i][j];
+ 
+        backtracking(1);
+        //cout<<endl<<"Solutia este "<<sol;
+        g<<sol;
+ 
+    cout<<endl;
+    f.close();
+    g.close();
+    return 0;
+}
