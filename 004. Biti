@@ -1,0 +1,64 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+ 
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <vector>
+using namespace std;
+ 
+ifstream f("biti.in");
+ofstream g("biti.out");
+ 
+int k;
+const int n = 2;
+vector <int> a;
+vector <int> etic;
+ 
+void eticheta(int t, int p)
+{
+    if(t > k)
+    {
+        if(k%p == 0)
+            for(size_t j=1; j<=p; j++)
+                etic.push_back(a[j]);
+    }
+            else
+            {
+                a[t] = a[t-p];
+                eticheta(t+1, p);
+                for(size_t j = a[t-p]+1; j<n; j++)
+                {
+                    a[t] = j;
+                    eticheta(t+1, t);
+                }
+            }
+     
+}
+ 
+void De_Brujin()
+{
+    a.resize(n*k, 0);
+    eticheta(1, 1);
+}
+ 
+void afisare()
+{
+    g<<etic.size() + k-1<<endl;
+    for(size_t i=0, n=etic.size(); i<n; i++)
+        g<<etic[i];
+    for(size_t i=0; i<k-1; i++)
+        g<<0;
+}
+ 
+int main()
+{
+    f>>k;
+ 
+    De_Brujin();
+    afisare();
+ 
+    //f.close();
+    //g.close();
+    //cout<<endl;
+    return 0;
+}
