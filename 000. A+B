@@ -1,0 +1,18 @@
+// Created by PhantomCracker. Copyright(c) PhantomCracker
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+    int a, b, s;
+    ifstream f("adunare.in");
+    ofstream g("adunare.out");
+    f>>a>>b;
+    s=a+b;
+    g<<s;
+    f.close();
+    g.close();
+    cout<<endl;
+    return 0;
+}
